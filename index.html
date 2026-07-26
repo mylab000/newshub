@@ -372,8 +372,8 @@
     .btn-add{ width:100%; }
   }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script defer>
   const SUPABASE_URL = 'https://zdtmljxdmllbdzjdwrwa.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkdG1sanhkbWxsYmR6amR3cndhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5Mzk4MTcsImV4cCI6MjEwMDUxNTgxN30.JKNy0pX8wBdrr3Oud_ydr3IXnM5yjSJpOfKz9FxFIC0';
   let supabaseClient = null;
@@ -509,7 +509,7 @@
 <footer>NewsDotCom &middot; Cari berita merentas portal guna Google News, terus dalam pelayar.</footer>
 </div>
 
-<script>
+<script defer>
   const $ = id => document.getElementById(id);
 
   let keywords = [];
