@@ -115,16 +115,23 @@
   *{ box-sizing:border-box; }
   html,body{ margin:0; padding:0; }
   body{
-    background:var(--bg); color:var(--ink); font-family:var(--sans);
+    background:#0b1020; color:var(--ink); font-family:var(--sans);
     min-height:100vh; display:flex; flex-direction:column;
     position:relative;
   }
-  body::before{
-    content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-    background:
-      radial-gradient(620px circle at 6% -6%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 62%),
-      radial-gradient(520px circle at 106% 16%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
-      radial-gradient(560px circle at 46% 118%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 62%);
+  .bg-art-wrap{
+    position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+  }
+  .bg-art-wrap svg{ width:100%; height:100%; display:block; }
+  .bg-fade-stop{ stop-color:var(--bg); }
+  .bg-wave{ animation:bgWaveDrift 22s ease-in-out infinite alternate; }
+  .bg-wave-2{ animation-duration:28s; animation-delay:-4s; }
+  @keyframes bgWaveDrift{
+    0%{ transform:translateX(-18px) translateY(0); }
+    100%{ transform:translateX(18px) translateY(10px); }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .bg-wave{ animation:none; }
   }
   header, main, footer{ position:relative; z-index:1; }
 
@@ -365,6 +372,77 @@
 </head>
 <body>
 
+<div class="bg-art-wrap" aria-hidden="true">
+  <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="skyGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#241533"/>
+        <stop offset="32%" stop-color="#141b3a"/>
+        <stop offset="68%" stop-color="#0d2438"/>
+        <stop offset="100%" stop-color="#0a2f3f"/>
+      </linearGradient>
+      <radialGradient id="coralGlow" cx="8%" cy="8%" r="48%">
+        <stop offset="0%" stop-color="#ff8a65" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#ff8a65" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="cyanGlow" cx="100%" cy="38%" r="60%">
+        <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0.15">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+        <stop offset="42%" stop-color="#ffffff" stop-opacity="0.85"/>
+        <stop offset="100%" stop-color="#8be9fd" stop-opacity="0.55"/>
+      </linearGradient>
+      <linearGradient id="fadeGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0b1020" stop-opacity="0"/>
+        <stop offset="100%" class="bg-fade-stop" stop-color="#0b1020" stop-opacity="1"/>
+      </linearGradient>
+      <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="5"/>
+      </filter>
+    </defs>
+
+    <rect width="1600" height="900" fill="url(#skyGrad)"/>
+    <rect width="1600" height="900" fill="url(#coralGlow)"/>
+    <rect width="1600" height="900" fill="url(#cyanGlow)"/>
+
+    <g stroke="#ffb199" stroke-opacity="0.38" stroke-width="1">
+      <line x1="40" y1="120" x2="180" y2="60"/>
+      <line x1="180" y1="60" x2="260" y2="180"/>
+      <line x1="40" y1="120" x2="260" y2="180"/>
+      <line x1="180" y1="60" x2="340" y2="40"/>
+      <line x1="260" y1="180" x2="340" y2="40"/>
+      <line x1="260" y1="180" x2="360" y2="240"/>
+      <line x1="340" y1="40" x2="360" y2="240"/>
+      <line x1="40" y1="120" x2="90" y2="260"/>
+      <line x1="260" y1="180" x2="90" y2="260"/>
+      <line x1="90" y1="260" x2="200" y2="320"/>
+      <line x1="260" y1="180" x2="200" y2="320"/>
+      <line x1="360" y1="240" x2="200" y2="320"/>
+      <line x1="360" y1="240" x2="420" y2="300"/>
+      <line x1="200" y1="320" x2="420" y2="300"/>
+    </g>
+    <g fill="#ffd7c9">
+      <circle cx="40" cy="120" r="2.5"/>
+      <circle cx="180" cy="60" r="2.5"/>
+      <circle cx="260" cy="180" r="3"/>
+      <circle cx="340" cy="40" r="2"/>
+      <circle cx="360" cy="240" r="3"/>
+      <circle cx="90" cy="260" r="2"/>
+      <circle cx="200" cy="320" r="2.5"/>
+      <circle cx="420" cy="300" r="2"/>
+    </g>
+
+    <path class="bg-wave bg-wave-1" d="M-100,420 C150,340 320,480 520,400 S820,300 1000,380 S1300,460 1750,340"
+          fill="none" stroke="url(#waveGrad)" stroke-width="22" stroke-linecap="round" filter="url(#softBlur)" opacity="0.55"/>
+    <path class="bg-wave bg-wave-2" d="M-100,520 C180,460 360,560 560,500 S860,420 1080,490 S1360,560 1750,460"
+          fill="none" stroke="url(#waveGrad)" stroke-width="14" stroke-linecap="round" filter="url(#softBlur)" opacity="0.4"/>
+
+    <rect x="0" y="600" width="1600" height="300" fill="url(#fadeGrad)"/>
+  </svg>
+</div>
+
 <div id="authRoot"></div>
 
 <div id="mainPage" style="display:none;">
@@ -464,7 +542,7 @@
 
   function applyThemeToDOM() {
     document.body.setAttribute('data-theme', currentColorTheme);
-    document.body.classList.toggle('dark', currentDarkMode);
+    document.body.classList.add('dark'); // mod terang dibuang -- gelap sentiasa aktif
   }
   function persistThemeLocal() {
     try {
@@ -512,13 +590,6 @@
     panel.onclick = ev => ev.stopPropagation();
 
     let html = '<div class="settings-section">';
-    html += '  <div class="settings-label">Mod Paparan</div>';
-    html += '  <div class="mode-toggle-row">';
-    html += '    <button class="mode-toggle-btn' + (!currentDarkMode ? ' active' : '') + '" onclick="setDarkMode(false)">☀ Terang</button>';
-    html += '    <button class="mode-toggle-btn' + (currentDarkMode ? ' active' : '') + '" onclick="setDarkMode(true)">🌙 Gelap</button>';
-    html += '  </div>';
-    html += '</div>';
-    html += '<div class="settings-section">';
     html += '  <div class="settings-label">Warna Tema</div>';
     html += '  <div class="theme-swatch-grid">';
     COLOR_THEMES.forEach(t => {
