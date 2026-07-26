@@ -6,7 +6,11 @@
 <title>NewsDotCom — Pemantau Berita Ikut Kata Kunci</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650&family=Manrope:wght@400;500;600;650&family=Sora:wght@400;500;600;650&family=Source+Serif+4:wght@400;500;600;650&display=swap" rel="stylesheet">
+<!-- Fon Google dimuat secara tidak menyekat rendering (non-render-blocking).
+     Kalau community/rangkaian mobile lambat atau sekat akses ke fonts.googleapis.com,
+     app tetap papar terus guna fon fallback sistem, bukan tersekat skrin kosong. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650&family=Manrope:wght@400;500;600;650&family=Sora:wght@400;500;600;650&family=Source+Serif+4:wght@400;500;600;650&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650&family=Manrope:wght@400;500;600;650&family=Sora:wght@400;500;600;650&family=Source+Serif+4:wght@400;500;600;650&display=swap"></noscript>
 <style>
   :root, [data-theme="amber"]{
     --bg:#f7f5f2; --panel:#ffffff; --panel-alt:#f0ece4; --line:#e6ddd0;
@@ -132,6 +136,9 @@
   }
   @media (prefers-reduced-motion:reduce){
     .bg-wave{ animation:none; }
+  }
+  @media (max-width:640px){
+    .bg-wave{ animation:none; } /* jimat CPU/GPU pada peranti mobile, elak lag/hang */
   }
   header, main, footer{ position:relative; z-index:1; }
 
@@ -272,8 +279,8 @@
   .timeline{ display:flex; flex-direction:column; gap:12px; }
   .feed-card{
     display:flex; gap:12px; align-items:flex-start;
-    background:color-mix(in srgb, var(--panel) 86%, transparent);
-    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    background:color-mix(in srgb, var(--panel) 90%, transparent);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
     border:1px solid var(--line); border-radius:16px;
     padding:16px 16px 16px 14px; text-decoration:none; color:inherit;
     box-shadow:5px 5px 12px rgba(0,0,0,0.4), -3px -3px 9px rgba(255,255,255,0.045), 0 1px 2px rgba(0,0,0,0.3);
